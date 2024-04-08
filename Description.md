@@ -28,7 +28,7 @@ This is a task management platform that operates on a freemium business model, o
 - __As a__ client, __I want__ to be able to set a custom Pomodoro timer, __so what__ I can improve my focus and productivity.
 - __As a__ client, __I want__ to be able to assign priorities and tags to my tasks, __so what__ I can determine their importance and categorize them to plan my time more efficiently.
 - __As a__ client, __I want__ to receive notifications, __so what__ I can remember pending tasks and Pomodoro breaks.
-- __As a__ premium client, __I want__ to be able to see a report of my completed tasks and the time spent on each one, __so what__ I can evaluate my productivity.
+- __As a__ premium client, __I want__ to be able to see my stats of completed tasks and the time spent on each one, __so what__ I can evaluate my productivity.
 - __As a__ premium client, __I want__ to be able to automatically repeat tasks, __so what__ I can plan my work more efficiently.
 - __As a__ premium client, __I want__ to be able to create unlimited projects, __so what__ I can incorporate all areas of my life into productivity.
 - __As a__ premium client, __I want__ to be able to create folders, __so what__ I can organize my projects by life categories.
@@ -44,21 +44,17 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 ## Entities
 - User: name, id, email, password, login(), logout()
 - Admin (User): get_client_reports(), get_premium_client_reports()
-- Client (User): make_tasks(), view_tasks(), edit_tasks(), delete_tasks(), create_project(), edit_project(), receive_notifications(), set_pomodoro_timer()
-- Premium Client (Client): view_productivity_stats(), create_folder()
+- Client (User): make_tasks(), view_tasks(), edit_tasks(), delete_tasks(), create_project(), edit_project(), receive_notifications(), start_pomodoro_timer(), stop_pomodoro_timer(), custom_pomodoro_timer()
+- Premium Client (Client): view_productivity_stats(), create_folder(), repeat_tasks()
 - Task: name, description, due_date, priority, status, tags
-- Subtask: name, status
-- Schedulling: day, hour, sport space[E], payment[E] 
-- Publicity: text, deadline, hide()
-- Client(User): make_reservations(), show_catalog()
-- Course(Service): description, start_date, end_date, list_clients, add client(), remove client()
-- Catalog Courses: list courses, add course(), remove course()
-- Catalog Sport Spaces: list spaces, add space(), remove space()
-- SportSpace (Service): location, dimensions
-- Reservations: client[E], sport space [E], start date, end date
-- PayChannel: name, description
-- Payments: client, value, service[E]
-- Service: name, price
+- Subtask: name, status, Task[E]
+- Notification: message, send(), show(), Client[E]
+- Pomodoro: short_break, long_break, pomodoro_length, set_long_break()
+- Project: name, Client[E], Task[E], add_task(), remove_task()
+- Folder: name, Project[E], Client[E], add_project(), remove_project()
+- TaskStats: Client[E], total_completed_tasks, weekly_completed_tasks, today_completed_tasks, task_focus_time, project_time
+- Report: date, number_of_clients, number_of_premium_clients
+
 
 # Processes
 
