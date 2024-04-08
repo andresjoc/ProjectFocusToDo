@@ -24,12 +24,12 @@ This is a task management platform that operates on a freemium business model, o
 - Clients can provide feedback and report issues.
   
 ## User Stories
-- __As a__ client, __I want__ to be able to create tasks and subtasks,  __so what__ I can organize my work and daily activities.
-- __As a__ client, __I want__ to use the Pomodoro Technique, __so what__ I can manage my work time.
+- __As a__ client, __I want__ to be able to create, edit and delete tasks and subtasks,  __so what__ I can organize my work and daily activities.
 - __As a__ client, __I want__ to be able to set a custom Pomodoro timer, __so what__ I can improve my focus and productivity.
-- __As a__ client, __I want__ to be able to assign priorities to my tasks, __so what__ I can determine their importance and plan my time more efficiently.
-- __As a__ client, __I want__ to receive notifications, __so what__ I can rememeber pending tasks and Pomodoro breaks.
+- __As a__ client, __I want__ to be able to assign priorities and tags to my tasks, __so what__ I can determine their importance and categorize them to plan my time more efficiently.
+- __As a__ client, __I want__ to receive notifications, __so what__ I can remember pending tasks and Pomodoro breaks.
 - __As a__ premium client, __I want__ to be able to see a report of my completed tasks and the time spent on each one, __so what__ I can evaluate my productivity.
+- __As a__ premium client, __I want__ to be able to automatically repeat tasks, __so what__ I can plan my work more efficiently.
 - __As a__ premium client, __I want__ to be able to create unlimited projects, __so what__ I can incorporate all areas of my life into productivity.
 - __As a__ premium client, __I want__ to be able to create folders, __so what__ I can organize my projects by life categories.
 - __As an__ admin, __I want__ to have a report of the number of clients, __so what__ I can make decisions to increase the number of clients.
@@ -44,8 +44,8 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 ## Entities
 - User: name, id, email, password, login(), logout()
 - Admin (User): get_client_reports(), get_premium_client_reports()
-- Client (User): make_tasks(), view_tasks(), edit_tasks(), delete_tasks(), create
-- Premium Client (Client): view_productivity_stats(), 
+- Client (User): make_tasks(), view_tasks(), edit_tasks(), delete_tasks(), create_project(), edit_project(), receive_notifications(), set_pomodoro_timer()
+- Premium Client (Client): view_productivity_stats(), create_folder()
 - Task: name, description, due_date, priority, status, tags
 - Subtask: name, status
 - Schedulling: day, hour, sport space[E], payment[E] 
