@@ -28,7 +28,9 @@ This is a task management platform that operates on a freemium business model, o
 - __As a__ client, __I want__ to be able to set a custom Pomodoro timer, __so what__ I can improve my focus and productivity.
 - __As a__ client, __I want__ to be able to assign priorities and tags to my tasks, __so what__ I can determine their importance and categorize them to plan my time more efficiently.
 - __As a__ client, __I want__ to receive notifications, __so what__ I can remember pending tasks and Pomodoro breaks.
-- __As a__ premium client, __I want__ to be able to see my stats of completed tasks and the time spent on each one, __so what__ I can evaluate my productivity.
+- __As a__ client, __I want__ to see all plans for subscriptions, __so what__ I can choose the best plan for my needs.
+- __As a__ client, __I want__ to pay for subscriptions, __so what__ I can access to all features of the platform.
+- __As a__ premium client, __I want__ to be able to see my report of completed tasks and the time spent on each one, __so what__ I can evaluate my productivity.
 - __As a__ premium client, __I want__ to be able to automatically repeat tasks, __so what__ I can plan my work more efficiently.
 - __As a__ premium client, __I want__ to be able to create unlimited projects, __so what__ I can incorporate all areas of my life into productivity.
 - __As a__ premium client, __I want__ to be able to create folders, __so what__ I can organize my projects by life categories.
@@ -39,35 +41,96 @@ This is a task management platform that operates on a freemium business model, o
 
 ### Tools to Use
 
-In this case, the backend will be built using _Python_ 3.11_, and some related technologies as _Fast API_ to serve functionalities, _PyTest_ to apply some simple unit tests, and _Black_ to auto-format the code and increase code readability.
+In this case, the backend will be built using _Python_ 3.11_, and some related technologies such as _Fast API__ to serve functionalities, _PyTest_ to apply some simple unit tests, and _Black_ to auto-format the code and increase code readability.
 
 ## Entities
 - User: name, id, email, password, login(), logout()
 - Admin (User): get_client_reports(), get_premium_client_reports()
-- Client (User): make_tasks(), view_tasks(), edit_tasks(), delete_tasks(), create_project(), edit_project(), receive_notifications(), start_pomodoro_timer(), stop_pomodoro_timer(), custom_pomodoro_timer()
-- Premium Client (Client): view_productivity_stats(), create_folder(), repeat_tasks()
-- Task: name, description, due_date, priority, status, tags
+- Client (User): create_tasks(), create_subtasks(), view_tasks(), edit_tasks(), edit_subtasks(), delete_tasks(), delete_subtasks(), view_projects(), view_subtasks(), create_project(), edit_project(), delete_project(), receive_notifications(), start_pomodoro_timer(), stop_pomodoro_timer(), custom_pomodoro_timer(), see_plans(), pay_for_subscription()
+- Premium Client (Client): view_productivity_stats(), create_folder(), edit_folder(), delete_folder(), repeat_tasks()
+- Task: name, description, due_date, priority, status, tags, Client[E], create_subtask(), edit_subtask(), delete_subtask()
 - Subtask: name, status, Task[E]
 - Notification: message, send(), show(), Client[E]
-- Pomodoro: short_break, long_break, pomodoro_length, set_long_break()
+- Pomodoro: short_break, long_break, pomodoro_length, long_break_after
 - Project: name, Client[E], Task[E], add_task(), remove_task()
 - Folder: name, Project[E], Client[E], add_project(), remove_project()
-- TaskStats: Client[E], total_completed_tasks, weekly_completed_tasks, today_completed_tasks, task_focus_time, project_time
-- Report: date, number_of_clients, number_of_premium_clients
-
+- Plan: name, price, description
+- Subscription: Plan[E], start_date, end_date, add client(), remove client(), Client[E]
+- Report: title, description, date, type
+- TaskStats(Report): Client[E], total_completed_tasks, weekly_completed_tasks, today_completed_tasks, task_focus_time, project_time, create_task_report()
+- ClientsStats(Report): date, number_of_clients, number_of_premium_clients, create_client_report(), Admin[E]
 
 # Processes
+- Create a Task:
 
-- Management Publicities:
-  
-![Activity Diagram](images/activity_management_publicities.png)
+- Create a project:
 
-- View Schedulling Report:
+- Create a Folder:
 
-- View Courses Catalog:
+- Creake a subtask:
 
-- Create a Reservation:
+- Edit a Task:
 
-- Make Online Payment:
+- Edit a Project:
 
-- View Payments Report:
+- Edit a Folder:
+
+- Edit a Subtask:
+
+- Delete a Task:
+
+- Delete a Project:
+
+- Delete a Folder:
+
+- Delete a Subtask:
+
+- View Tasks:
+
+- View Projects:
+
+- View Folders:
+
+- View Subtasks:
+
+- Start a Pomodoro:
+
+- Stop a Pomodoro:
+
+- Customize a Pomodoro:
+
+- See Plans:
+
+- Buy Subscription:
+
+- Create Task Stats:
+
+- View Task Stats:
+
+- Create Folder:
+
+- Edit Folder:
+
+- Delete Folder:
+
+- Repeat Tasks:
+
+- Send Notification:
+
+- Show Notifications:
+
+- Add a task to the project:
+
+- Remove a task from the project:
+
+- Add a project to the folder:
+
+- Remove a project from the folder:
+
+- Add a client to the subscription:
+
+- Remove a client from the subscription:
+
+- Create a client report:
+
+- Create a task report:
