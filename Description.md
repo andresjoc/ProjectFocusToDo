@@ -46,9 +46,10 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 ## Entities
 - User: name, id, email, password, login(), logout()
 - Admin (User): get_client_reports(), get_premium_client_reports()
-- Client (User): create_tasks(), create_subtasks(), view_tasks(), edit_tasks(), edit_subtasks(), delete_tasks(), delete_subtasks(), view_projects(), view_subtasks(), create_project(), edit_project(), delete_project(), receive_notifications(), start_pomodoro_timer(), stop_pomodoro_timer(), custom_pomodoro_timer(), see_plans(), pay_for_subscription()
+- Client (User): create_tasks(), create_subtasks(), view_tasks(), edit_tasks(), edit_subtasks(), delete_tasks(), delete_subtasks(), create_tag(), edit_tag(), delete_tag(), view_projects(), view_subtasks(), create_project(), edit_project(), delete_project(), receive_notifications(), start_pomodoro_timer(), stop_pomodoro_timer(), custom_pomodoro_timer(), see_plans(), pay_for_subscription()
 - Premium Client (Client): view_productivity_stats(), create_folder(), edit_folder(), delete_folder(), repeat_tasks()
 - Task: name, description, due_date, priority, status, tags, Client[E], create_subtask(), edit_subtask(), delete_subtask()
+- Tag: name
 - Subtask: name, status, Task[E]
 - Notification: message, send(), show(), Client[E]
 - Pomodoro: short_break, long_break, pomodoro_length, long_break_after
@@ -68,11 +69,13 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 
 - Create a Task:
 
+- Create Tag:
+
 - Create a project:
 
 - Create a Folder:
 
-- Creake a subtask:
+- Create subtask:
 
 - Edit a Task:
 
@@ -80,15 +83,17 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 
 - Edit a Folder:
 
-- Edit a Subtask:
+- Edit Subtask:
 
 - Delete a Task:
+
+- Delete Tag:
 
 - Delete a Project:
 
 - Delete a Folder:
 
-- Delete a Subtask:
+- Delete Subtask:
 
 - View Tasks:
 
