@@ -64,7 +64,8 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 # Processes
 
 - Login:
-- Logout:
+  
+![Diagrama sin título-Log in Managment  drawio](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/f9d81cc0-21c5-47cc-9b19-3dd6b47663bd)
 
 - Create a Task:
 - Edit a Task:
@@ -112,5 +113,4 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 ![Diagrama sin título-Notification Managment  drawio](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/9093d6c2-db96-4252-be22-a6f34dfdc879)
 
 
-- Create a client report:
-- Create a task report:
+
