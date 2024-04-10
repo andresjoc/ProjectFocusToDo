@@ -64,83 +64,53 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 # Processes
 
 - Login:
-
 - Logout:
 
 - Create a Task:
-
-- Create Tag:
-
-- Create a project:
-
-- Create a Folder:
-
-- Create subtask:
-
 - Edit a Task:
-
-- Edit a Project:
-
-- Edit a Folder:
-
-- Edit Subtask:
-
 - Delete a Task:
-
-- Delete Tag:
-
-- Delete a Project:
-
-- Delete a Folder:
-
-- Delete Subtask:
-
 - View Tasks:
 
-- View Projects:
+![task management](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/b1b29b5b-3110-4c48-bbe4-62bdac221403)
+-  Create a project:
+-  Edit a Project:
+-  Delete a Project:
+-  View Projects:
 
+
+ ![Diagrama sin título-Project man drawio](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/1381b063-f4c3-4d60-ad62-526718dab153)
+- Create a Folder:
+- Edit a Folder:
+- Delete a Folder:
 - View Folders:
 
+![Diagrama sin título-Folder Man drawio](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/8eaeaff8-c6b9-4c47-9648-2d044da3bb7e)
+
+- Create subtask:
+- Edit Subtask:
+- Delete Subtask:
 - View Subtasks:
 
+![Subtask management](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/64ab4f36-1d45-4e24-b807-7bb8012c8aac)
+
 - Start a Pomodoro:
-
 - Stop a Pomodoro:
-
 - Customize a Pomodoro:
 
+![Diagrama sin título-Pomodoro Managment drawio](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/306dfa06-f45a-484f-8c35-9512306084d5)  
+
 - See Plans:
-
 - Buy Subscription:
-
-- Create Task Stats:
-
-- View Task Stats:
-
-- Create Folder:
-
-- Edit Folder:
-
-- Delete Folder:
-
-- Repeat Tasks:
-
-- Send Notification:
-
-- Show Notifications:
-
-- Add a task to the project:
-
-- Remove a task from the project:
-
-- Add a project to the folder:
-
-- Remove a project from the folder:
-
 - Add a client to the subscription:
-
 - Remove a client from the subscription:
 
-- Create a client report:
+![Diagrama sin título-Subscription Manager drawio (1)](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/5808043e-33ce-43a8-921e-7201da8ff7f1)
 
+- Send Notification:
+- Show Notifications:
+
+![Diagrama sin título-Notification Managment  drawio](https://github.com/andresjoc/ProjectFocusToDo/assets/163566801/9093d6c2-db96-4252-be22-a6f34dfdc879)
+
+
+- Create a client report:
 - Create a task report:
