@@ -52,14 +52,14 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 - Tag: name
 - Subtask: name, status, Task[E]
 - Notification: message, send(), show(), Client[E]
-- Pomodoro: short_break, long_break, pomodoro_length, long_break_after
+- Pomodoro: short_break, long_break, pomodoro_length, long_break_after, Client[E]
 - Project: name, Client[E], Task[E], add_task(), remove_task()
 - Folder: name, Project[E], Client[E], add_project(), remove_project()
 - Plan: name, price, description
 - Subscription: Plan[E], start_date, end_date, add client(), remove client(), Client[E]
 - Report: title, description, date, type
 - TaskStats(Report): Client[E], total_completed_tasks, weekly_completed_tasks, today_completed_tasks, task_focus_time, project_time, create_task_report()
-- ClientsStats(Report): date, number_of_clients, number_of_premium_clients, create_client_report(), Admin[E]
+- ClientsStats(Report): number_of_clients, number_of_premium_clients, create_client_report(), Admin[E]
 
 # Processes
 
