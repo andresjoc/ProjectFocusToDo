@@ -4,7 +4,7 @@ This project involves the construction of the backend of a platform called 'Focu
 
 ## Business Model
 
-This is a task management platform that operates on a freemium business model, offering basic features for free, such as starting a timer for the Pomodoro technique. However, if you desire premium features like cloud services and advanced task analytics, among others, you have to buy a subscription. Additionally, the platform may generate revenue through in-app advertisements.
+This is a task management platform that operates on a freemium business model, offering basic features for free, such as starting a timer for the Pomodoro technique. However, if you desire premium features like advanced task analytics and better organization, you have to buy a subscription.
 
 ### Business Rules
 - The client must provide a valid email address and create a password to register an account.
