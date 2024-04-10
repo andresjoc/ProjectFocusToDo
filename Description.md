@@ -61,6 +61,11 @@ In this case, the backend will be built using _Python_ 3.11_, and some related t
 - ClientsStats(Report): date, number_of_clients, number_of_premium_clients, create_client_report(), Admin[E]
 
 # Processes
+
+- Login:
+
+- Logout:
+
 - Create a Task:
 
 - Create a project:
