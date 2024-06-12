@@ -12,8 +12,8 @@
         }
     },
     {
-        "username": "user",
-        "password": "user",
+        "username": "",
+        "password": "",
         "email": "user@hotmail.com",
         "grants": {
             "add_vehicle": false,

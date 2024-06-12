@@ -1,20 +1,36 @@
 """
-This module contains the Notification class, which is used to show notifications to an specific user.
+This module contains the Notification class, which is used to show 
+notifications to an specific user.
 Authors: Andres Acevedo <ajacevedoa@udistrital.edu.co> Javier Murcia <jmurcian@udistrital.edu.co>
 """
 
 
+# pylint: disable= too-few-public-methods
 class Notification:
     """
-    This class represent a notification that is showen in console
+    This class represents a notification that is shown in the console.
+
+    Attributes:
+        username (str): The username associated with the notification.
+
+    Methods:
+        show_notification(message: str): Displays the notification message in the console.
     """
 
-    def __init__(self, message, username):
-        self.message = message
+    def __init__(self, username):
+        """
+        Initializes a new instance of the Notification class.
+
+        Args:
+            username (str): The username associated with the notification.
+        """
         self.username = username
 
-    def __str__(self):
-        return self.message
+    def show_notification(self, message: str):
+        """
+        Displays the notification message in the console.
 
-    def show_notification(self):
-        print(f"Notification to {self.username}: {self.message}")
+        Args:
+            message (str): The message to be displayed in the notification.
+        """
+        print(f"\nNotification to {self.username}: {message}")

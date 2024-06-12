@@ -1,65 +1,75 @@
-import time
-
 """
 This module contains the Pomodoro class, which is used to create a Pomodoro timer.
+Authors: Andres Acevedo <ajacevedoa@udistrital.edu.co> Javier Murcia <jmurcian@udistrital.edu.co>
 """
+
+import time
 
 
 class Pomodoro:
     """This class is used to create a Pomodoro timer."""
 
     def __init__(self, short_break, long_break, pomodoro_length, long_break_after):
-        self.short_break = short_break * 60
-        self.long_break = long_break * 60
-        self.pomodoro_length = pomodoro_length * 60
-        self.long_break_after = long_break_after
-        self.seconds = self.pomodoro_length
+        self._short_break = short_break * 60
+        self._long_break = long_break * 60
+        self._pomodoro_length = pomodoro_length * 60
+        self._long_break_after = long_break_after
+        self._seconds = self._pomodoro_length
+        self._notification = None
 
-    def start_pomodoro(self):
+    def start_pomodoro(self, notification):
         """This method starts the Pomodoro timer."""
+        self._notification = notification
         pomodoro_count = 0
         while True:
-            print(f"Pomodoro timer started for {self.pomodoro_length // 60} minutes.")
-            self.countdown(self.pomodoro_length)
+            print(
+                f"\nPomodoro timer started for {self._pomodoro_length // 60} minutes."
+            )
+            self.countdown(self._pomodoro_length)
 
-            print("Time's up!")
+            self._notification.show_notification("Time's up!")
             pomodoro_count += 1
 
-            if pomodoro_count % self.long_break_after == 0:
-                print(f"It's time for a long break of {self.long_break // 60} minutes.")
-                choice = input("Enter 1 to take the break or 0 to skip: ")
+            if pomodoro_count % self._long_break_after == 0:
+                print(
+                    f"\nIt's time for a long break of {self._long_break // 60} minutes."
+                )
+                choice = input("\nEnter 1 to take the break or 0 to skip: ")
                 if choice == "1":
-                    self.countdown(self.long_break)
+                    self.countdown(self._long_break)
                 elif choice == "0":
                     print("Skipping the long break.")
                 else:
                     print("Invalid choice. Skipping the long break.")
             else:
                 print(
-                    f"It's time for a short break of {self.short_break // 60} minutes."
+                    f"\nIt's time for a short break of {self._short_break // 60} minutes."
                 )
-                choice = input("Enter 1 to take the break or 0 to skip: ")
+                choice = input("\nEnter 1 to take the break or 0 to skip: ")
                 if choice == "1":
-                    self.countdown(self.short_break)
+                    self.countdown(self._short_break)
                 elif choice == "0":
-                    print("Skipping the short break.")
+                    print("\nSkipping the short break.")
                 else:
-                    print("Invalid choice. Skipping the short break.")
+                    print("\nInvalid choice. Skipping the short break.")
 
-            choice = input("Enter 1 to continue or 0 to stop: ")
+            choice = input("\nEnter 1 to continue or 0 to stop: ")
             if choice == "0":
-                print("Pomodoro timer stopped.")
+                self._notification.show_notification("\nTime's up!")
                 break
-            elif choice == "1":
-                self.seconds = self.pomodoro_length
+            # pylint: disable= attribute-defined-outside-init
+            if choice == "1":
+                self.seconds = self._pomodoro_length
             else:
-                print("Invalid choice. Exiting.")
+                print("\nInvalid choice. Exiting.")
                 break
 
+    # pylint: disable= consider-using-f-string
     def countdown(self, duration):
         """Countdown in minutes and seconds."""
+        # pylint: disable= attribute-defined-outside-init
         self.seconds = duration
-        while self.seconds > 0:
+        while self.seconds > -1:
             mins, secs = divmod(self.seconds, 60)
             timeformat = "{:02d}:{:02d}".format(mins, secs)
             print(timeformat, end="\r")

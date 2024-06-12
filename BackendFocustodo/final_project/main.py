@@ -1,20 +1,20 @@
 """
-This module has some classes related to users and authentication.
+This module has the main function of the application. It allows the user to interact with system.
 Authors: Andres Acevedo <ajacevedoa@udistrital.edu.co> Javier Murcia <jmurcian@udistrital.edu.co>
 """
 
+# pylint: disable= import-error
+import sys
 from project import user_auth
-from project import composite
-from project import pomodoro
 from project import subscription
-from project import report_factory
-from abc import ABC, abstractmethod
+from project import notification
+from project import client as cliente
 
 
 def login():
     """This function allows the user to log in the system."""
-    username = input("Please enter your username: ")
-    password = input("Please enter your password: ")
+    username = input("Ingrese su usuario: ")
+    password = input("Ingrese su contraseña: ")
 
     auth = user_auth.Authentication(username, password)
 
@@ -23,311 +23,10 @@ def login():
     return None
 
 
-# Abstract class for the decorator pattern
-class ClientABC(ABC):
-
-    def create_task(self, name: str):
-        """This method creates a task."""
-        pass
-
-    def view_tasks(self):
-        """This method shows all the tasks."""
-        pass
-
-    def delete_task(self, name: str):
-        """This method deletes a task."""
-        pass
-
-    def create_subtask(self, name: str):
-        """This method creates a subtask."""
-        pass
-
-    def delete_subtask(self, name: str):
-        """This method deletes a subtask."""
-        pass
-
-    def view_subtasks(self):
-        """This method shows all the subtasks."""
-        pass
-
-    def create_project(self, name: str):
-        """This method creates a project."""
-        pass
-
-    def delete_project(self, name: str):
-        """This method deletes a project."""
-        pass
-
-    def view_projects(self):
-        """This method shows all the projects."""
-        pass
-
-    def start_pomodoro(self):
-        """This method starts the pomodoro timer."""
-        pass
-
-    def set_task_as_done(self, name: str):
-        """This method sets a task as done."""
-        pass
-
-    def set_subtask_as_done(self, name: str):
-        """This method sets a subtask as done."""
-        pass
-
-    def set_project_as_done(self, name: str):
-        """This method sets a project as done."""
-        pass
-
-    def custom_pomodoro(self):
-        """This method allows the user to set custom values for the pomodoro timer."""
-        pass
-
-    def view_plans(self):
-        """This method shows all the plans."""
-        pass
-
-    def pay_for_suscription(self):
-        """This method allows the user to pay for a subscription."""
-        pass
-
-    def create_report(self, type_report: str):
-        """This method shows the clients report."""
-        pass
-
-
-class Client(ClientABC):
-    """This class represents the client of the application. It has all the methods to manage the tasks, subtasks, projects, pomodoro timer, etc."""
-
-    def __init__(self):
-        self.tasks = []
-        self.projects = []
-        self.short_break = 5
-        self.long_break = 15
-        self.pomodoro_length = 25
-        self.long_break_after = 4
-        self.plans = []
-        self.premium = False
-        self.user = None
-        self.done_tasks = []
-        self.clients = []
-
-    def create_task(self, name: str):
-        """This method creates a task."""
-        for tarea in self.tasks:
-            if name == tarea.get_name():
-                return False
-        tarea = composite.Task(name)
-        self.tasks.append(tarea)
-        return True
-
-    def view_tasks(self):
-        """This method shows all the tasks."""
-        for tarea in self.tasks:
-            if tarea.status is False:
-                print("Tarea: " + tarea.get_name())
-                for subtarea in tarea.subtasks:
-                    if subtarea.status is False:
-                        print("     Subtarea: " + subtarea.get_name() + "\n")
-
-    def delete_task(self, name: str):
-        """This method deletes a task."""
-        for tarea in self.tasks:
-            if name == tarea.get_name():
-                self.tasks.remove(tarea)
-                return True
-        return False
-
-    def create_subtask(self, name: str):
-        """This method creates a subtask."""
-        subtarea = composite.Subtask(name)
-        return subtarea
-
-    def create_project(self, name: str):
-        """This method creates a project."""
-        for project in self.projects:
-            if name == project.get_name():
-                return False
-        project = composite.Project(name)
-        self.projects.append(project)
-        return True
-
-    def delete_project(self, name: str):
-        """This method deletes a project."""
-        for project in self.projects:
-            if name == project.get_name():
-                self.projects.remove(project)
-                return True
-        return False
-
-    def view_projects(self):
-        """This method shows all the projects."""
-        for project in self.projects:
-            if project.status is False:
-                print("Proyecto: " + project.get_name())
-                if len(project.tasks) > 0:
-                    for tarea in project.tasks:
-                        if tarea.status is False:
-                            print("     Tarea: " + tarea.get_name())
-                            for subtarea in tarea.subtasks:
-                                if subtarea.status is False:
-                                    print(
-                                        "         Subtarea: "
-                                        + subtarea.get_name()
-                                        + "\n"
-                                    )
-
-    def start_pomodoro(self):
-        """This method starts the pomodoro timer."""
-        pomodoro_timer = pomodoro.Pomodoro(
-            self.short_break,
-            self.long_break,
-            self.pomodoro_length,
-            self.long_break_after,
-        )
-        pomodoro_timer.start_pomodoro()
-
-    def set_task_as_done(self, name: str):
-        """This method sets a task as done."""
-        for task in self.tasks:
-            if name == task.get_name():
-                self.done_tasks.append(task)
-                task.set_as_done()
-                return True
-        return False
-
-    def set_subtask_as_done(self, name: str):
-        """This method sets a subtask as done."""
-        for subtask in self.tasks:
-            if name == subtask.get_name():
-                subtask.set_as_done()
-                break
-
-    def set_project_as_done(self, name: str):
-        """This method sets a project as done."""
-        for project in self.projects:
-            if name == project.get_name():
-                project.set_as_done()
-                return True
-        return False
-
-    def custom_pomodoro(self):
-        """This method allows the user to set custom values for the pomodoro timer."""
-        self.short_break = int(
-            input("Ingrese la duración de la pausa corta en minutos: ")
-        )
-        self.long_break = int(
-            input("Ingrese la duración de la pausa larga en minutos: ")
-        )
-        self.pomodoro_length = int(
-            input("Ingrese la duración del pomodoro en minutos: ")
-        )
-        self.long_break_after = int(
-            input("Ingrese el número de pomodoros antes de una pausa larga: ")
-        )
-
-    def view_plans(self, username: str):
-        """This method shows all the plans."""
-        subscription.Subscription.get_plans(username)
-
-    def pay_for_suscription(self, username):
-        """This method allows the user to pay for a subscription."""
-        subscription.Subscription.add_client(username)
-
-    def view_clients_report(self):
-        """This method shows the clients report."""
-        factory = report_factory.ReportFactory()
-        factory.create_report("Clients", self.clients)
-
-
-class PremiumDecorator(ClientABC):
-    """This class adds the premium functionality to the client. Using the decorator pattern."""
-
-    # Envuelve un objeto Client y delega todas las llamadas de métodos al objeto envuelto.
-    def __init__(self, client):
-        self.client = client
-        self.client.premium = True
-
-    def create_task(self, name: str):
-        """This method creates a task."""
-        self.client.create_task(name)
-
-    def view_tasks(self):
-        """This method shows all the tasks."""
-        self.client.view_tasks()
-
-    def delete_task(self, name: str):
-        """This method deletes a task."""
-        self.client.delete_task(name)
-
-    def create_subtask(self, name: str):
-        """This method creates a subtask."""
-        self.client.create_subtask(name)
-
-    def view_subtasks(self):
-        """This method shows all the subtasks."""
-        self.client.view_subtasks()
-
-    def create_project(self, name: str):
-        """This method creates a project."""
-        self.client.create_project(name)
-
-    def delete_project(self, name: str):
-        """This method deletes a project."""
-        self.client.delete_project(name)
-
-    def view_projects(self):
-        """This method shows all the projects."""
-        self.client.view_projects()
-
-    def start_pomodoro(self):
-        """This method starts the pomodoro timer."""
-        self.client.start_pomodoro()
-
-    def set_task_as_done(self, name: str):
-        """This method sets a task as done."""
-        self.client.set_task_as_done(name)
-
-    def set_subtask_as_done(self, name: str):
-        """This method sets a subtask as done."""
-        self.client.set_subtask_as_done(name)
-
-    def set_project_as_done(self, name: str):
-        """This method sets a project as done."""
-        self.client.set_project_as_done(name)
-
-    def custom_pomodoro(self):
-        """This method allows the user to set custom values for the pomodoro timer."""
-        self.client.custom_pomodoro()
-
-    def view_plans(self):
-        """This method shows all the plans."""
-        self.client.view_plans()
-
-    def pay_for_suscription(self):
-        """This method allows the user to pay for a subscription."""
-        self.client.pay_for_suscription()
-
-    def create_report_clients(self):
-        """This method shows the clients report."""
-        self.client.create_report_clients()
-
-    def view_productivity_stats(self):
-        """This method shows the productivity stats."""
-        factory = report_factory.ReportFactory()
-        factory.create_report("Tasks", self.client.done_tasks)
-
-    def create_folder(self, name: str):
-        """This method creates a folder."""
-        self.client.create_folder(name)
-
-    def set_tag(self, name: str, tag: str):
-        """This method sets a tag to a task."""
-        for task in self.client.tasks:
-            if name == task.get_name():
-                task.set_tag(tag)
-                break
-
-
+# pylint: disable=line-too-long
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
+# That was disabled because we need to have a lot of branches and statements to have a good menu.
 def main():
     """This is the main function of the application. It allows the user to interact with the system."""
     user = None
@@ -339,9 +38,16 @@ def main():
         print("Usuario o contraseña incorrectos, intente de nuevo.")
         user = login()
 
-    client = Client()
+    client = cliente.Client()
+    subscription_instance = subscription.Subscription(
+        user.get_username()
+    )  # Instantiate the class
+
+    # pylint: disable=invalid-name
+    # We disabled that warning because we are following the convention of the class name
 
     OPTIONS = """
+    x = Salir
     1. Crear Tarea
     2. Mostrar Tareas
     3. Eliminar Tarea
@@ -357,12 +63,28 @@ def main():
     13. Marcar Proyecto como Realizado
     14. Personalizar Pomodoro
     15. Ver Planes de Suscripción
+    16. Pagar Suscripción
     """
 
-    print(OPTIONS)
+    OPTIONS_PREMIUM = """
+    OPCIONES PREMIUM:
+    18. Ver Estadísticas de Productividad
+    19. Crear Carpeta
+    20. Asignar Proyecto a Carpeta
+    21. Ver Carpetas
+    """
+
+    if client.premium is True:
+        print(OPTIONS + OPTIONS_PREMIUM)
+    else:
+        print(OPTIONS)
 
     # Menú de opciones
+    # pylint: disable=too-many-nested-blocks
+    # We disabled that warning because we need to nest to have a good Menu
+
     while True:
+
         option = input(
             "\nPor favor seleccione una opción: (Escriba 0 si desea ver las opciones nuevamente): "
         )
@@ -370,18 +92,28 @@ def main():
         if option == "1":
             print("\n==========Creando Tarea===========")
             task_name = input("Ingrese el nombre de la tarea: ")
+            # Si retorna False, la tarea ya existe
             if client.create_task(task_name) is False:
                 print("La tarea " + task_name + " ya existe, intente con otro nombre.")
             else:
                 print("Tarea: " + task_name + " creada con éxito")
+
         elif option == "0":
-            print(OPTIONS)
+            if (
+                client.premium is True
+            ):  # Si el usuario es premium, se muestran todas las opciones
+                print(OPTIONS + OPTIONS_PREMIUM)
+            else:
+                print(OPTIONS)
+
         elif option == "2":
             print("\n==========Mostrando Tareas===========")
             client.view_tasks()
+
         elif option == "3":
             print("\n==========Eliminando Tarea===========")
             task_name = input("Ingrese el nombre de la tarea a eliminar: ")
+            # Si retorna False, la tarea no existe
             if client.delete_task(task_name) is False:
                 print("La tarea " + task_name + " no existe")
             else:
@@ -394,23 +126,23 @@ def main():
             task_super = input(
                 "Escriba el nombre de la tarea a la que pertenece la subtarea: "
             )
+            # Verificar si la tarea a la que se quiere añadir la subtarea existe
             for task in client.tasks:
                 if task_super == task.get_name():
                     exist_task = True
                     subtask = input("Ingrese el nombre de la subtarea: ")
+                    # Verificar si la subtarea ya existe
                     for sub in task.subtasks:
                         if subtask == sub.get_name():
                             exist = True
+                    # Si la subtarea no existe, se crea
                     if exist is False:
                         task.add_component(client.create_subtask(subtask))
                         print("Subtarea: " + subtask + " creada con éxito")
                         break
-                    else:
-                        print(
-                            f"La subtarea {subtask} ya existe, intente con otro nombre."
-                        )
-                        break
-
+                    print(f"La subtarea {subtask} ya existe, intente con otro nombre.")
+                    break
+            # Si la tarea no existe, se avisa al usuario
             if exist_task is False:
                 print(
                     f"La tarea {task_super} no existe, cree la tarea primero y luego añade la subtarea"
@@ -423,9 +155,11 @@ def main():
             task_super = input(
                 "Escriba el nombre de la tarea a la que pertenece la subtarea a eliminar: "
             )
+            # Verificar si la tarea a la que se quiere añadir la subtarea existe
             for task in client.tasks:
                 if task_super == task.get_name():
                     exist_task = True
+                    # Verificar si la subtarea a eliminar existe
                     subtask = input("Ingrese el nombre de la subtarea a eliminar: ")
                     for sub in task.subtasks:
                         if subtask == sub.get_name():
@@ -433,15 +167,18 @@ def main():
                             task.remove_component(subtask)
                             print("Subtarea: " + subtask + " eliminada con éxito")
                             break
+                    # Si la subtarea no existe, se avisa al usuario
                     if exist is False:
                         print(f"La subtarea {subtask} no existe.")
                         break
+            # Si la tarea no existe, se avisa al usuario
             if exist_task is False:
                 print(f"La tarea {task_super} no existe, intente con otro nombre.")
 
         elif option == "6":
             print("\n==========Creando Proyecto===========")
             project_name = input("Ingrese el nombre del proyecto: ")
+            # Si recibe False, significa que el proyecto ya existe
             if client.create_project(project_name) is False:
                 print(
                     "El proyecto "
@@ -456,28 +193,29 @@ def main():
             exist = False
             exist_in_project = False
             exist_project = False
-
             project_name = input("Ingrese el nombre del proyecto: ")
             task_name = input("Ingrese el nombre de la tarea a agregar al proyecto: ")
+            # Verificar si la tarea existe
             for task in client.tasks:
                 if task_name == task.get_name():
                     exist = True
+                    # Verificar si el proyecto existe
                     for project in client.projects:
                         if project_name == project.get_name():
                             exist_project = True
                             # Para evitar que se agregue la misma tarea al proyecto
-                            for project in project.tasks:
-                                if task_name == project.get_name():
+                            for task in project.tasks:
+                                if task_name == task.get_name():
                                     exist_in_project = True
                                     print("La tarea ya existe en el proyecto.")
                                     break
+                            # Si la tarea no existe en el proyecto, se agrega
                             if exist_in_project is False:
                                 project.add_component(task)
                                 print(
                                     f"La tarea {task_name} fue agregada al proyecto {project_name} con éxito."
                                 )
                                 break
-
             if exist_project is False:
                 print("El proyecto no existe, cree uno y luego podrá agregar tareas.")
             if exist is False:
@@ -485,23 +223,29 @@ def main():
 
         elif option == "8":
             project_name = input("Ingrese el nombre del proyecto a eliminar: ")
+            # Si retorna false no se puede eliminar porque no existe
             if client.delete_project(project_name) is False:
                 print("El proyecto " + project_name + " no existe.")
             else:
                 print("Proyecto " + project_name + " eliminado")
+
         elif option == "9":
             print("\n==========Mostrando Proyectos===========")
             client.view_projects()
+
         elif option == "10":
             print("\n==========Iniciando Pomodoro===========")
-            client.start_pomodoro()
+            # Se le envía notificación para que pueda enviar mensajes al usuario
+            client.start_pomodoro(notification.Notification(user.get_username()))
+
         elif option == "11":
             print("\n==========Marcando Tarea como Realizada===========")
             task_name = input("Ingrese el nombre de la tarea a marcar como realizada: ")
             if client.set_task_as_done(task_name) is False:
                 print("La tarea " + task_name + " no existe")
             else:
-                print("Tarea " + task_name + "marcada como hecha")
+                print("Tarea " + task_name + " marcada como hecha")
+
         elif option == "12":
             print("\n==========Marcando Subtarea como Realizada===========")
             exist = False
@@ -509,10 +253,12 @@ def main():
             task_super = input(
                 "Escriba el nombre de la tarea a la que pertenece la subtarea a marcar: "
             )
+            # Verificar si la tarea a la que se quiere añadir la subtarea existe
             for task in client.tasks:
                 if task_super == task.get_name():
                     exist_task = True
                     subtask = input("Ingrese el nombre de la subtarea a marcar: ")
+                    # Verificar si la subtarea a marcar existe
                     for sub in task.subtasks:
                         if subtask == sub.get_name():
                             exist = True
@@ -534,13 +280,117 @@ def main():
                 print("El proyecto " + project_name + " no existe")
             else:
                 print("El proyecto " + project_name + " fue marcado como realizado")
+
         elif option == "14":
             print("\n==========Personalizando Pomodoro===========")
             client.custom_pomodoro()
+
         elif option == "15":
-            client.view_plans(user.get_username)
+            print("\n==========Mostrando Planes de Suscripción===========")
+            client.view_plans(subscription_instance)
+
+        elif option == "16":
+            if client.pay_for_subscription(subscription_instance) is True:
+                print("\n============Pagando Suscripción=============")
+                client = cliente.PremiumDecorator(client)
+                client.premium = True
+                print("Suscripción pagada con éxito")
+            else:  # En caso de que el usuario ya sea premium
+                print("\n============Mostrando Estado=============")
+                print("Ya eres usuario premium")
+
+        elif option == "17":
+            print("\n==========Mostrando Reporte de Clientes===========")
+            # client.view_clients_report()
+
+        # Opciones que solo pueden ejecutar los usuarios premium
+        elif option == "18":
+            if client.premium is False:
+                print("Opción no disponible")
+            else:
+                print("\n==========Mostrando Estadísticas de Productividad===========")
+                print(client.view_productivity_stats())
+
+        elif option == "19":
+            if client.premium is False:
+                print("Opción no disponible")
+            else:
+                print("\n==========Creando Carpeta===========")
+                folder_name = input("Ingrese el nombre de la carpeta: ")
+                client.create_folder(folder_name)
+
+        elif option == "20":
+            if client.premium is False:
+                print("Opción no disponible")
+            else:
+                print("\n==========Asignando Proyecto a Carpeta===========")
+                exist_project = False
+                exist_folder = False
+                project_name = input(
+                    "Ingrese el nombre del proyecto a agregar a la carpeta: "
+                )
+
+                # Verificar si el proyecto existe
+                for project in client.projects:
+                    if project_name == project.get_name():
+                        exist_project = True
+
+                folder_name = input("Ingrese el nombre de la carpeta: ")
+                # Verificar si la carpeta existe
+                for folder in client.folders:
+                    if folder_name == folder.get_name():
+                        exist_folder = True
+
+                # Para evitar que se agregue el mismo proyecto a la carpeta
+                # pylint: disable=undefined-loop-variable
+                # That isn't a undefined loop variable because with its if statement it's defined as just one
+                if exist_project is True and exist_folder is True:
+                    for folder in client.folders:
+                        if folder_name == folder.get_name():
+                            if folder.get_project(project_name) is None:
+                                folder.add_project(project)
+                                print(
+                                    f"El proyecto {project_name} fue agregado a la carpeta {folder_name} con éxito."
+                                )
+                            else:
+                                print("El proyecto ya existe en la carpeta.")
+                                break
+
+                if exist_project is False:
+                    print(
+                        f"\nEl proyecto {project_name} no existe, cree uno y luego podrá agregarlo a una carpeta."
+                    )
+
+                if exist_folder is False:
+                    print(
+                        f"\nLa carpeta {folder_name} no existe, cree una y luego podrá agregar proyectos."
+                    )
+
+        # Impresión con ciclos anidados
+        elif option == "21":
+            if client.premium is False:
+                print("Opción no disponible")
+            else:
+                print("\n==========Mostrando Carpetas===========")
+                for folder in client.folders:
+                    print("Carpeta: " + folder.get_name())
+                    for project in folder.projects:
+                        print("     Proyecto: " + project.get_name())
+                        for task in project.tasks:
+                            print("         Tarea: " + task.get_name())
+                            for subtask in task.subtasks:
+                                print("             Subtarea: " + subtask.get_name())
+
+        elif option == "x":
+            print("Saliendo de la aplicación...")
+            print(
+                "Si desea enviar feedback, por favor envíe un correo a focustodo@udistrital.edu.co"
+            )
+            sys.exit()
+
         else:
             print("Opción inválida. Por favor seleccione una opción válida.")
 
 
-main()
+if __name__ == "__main__":
+    main()
