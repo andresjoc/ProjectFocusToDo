@@ -1,0 +1,27 @@
+[
+    {
+        "username": "admin",
+        "password": "admin",
+        "email": "admin@hotmail.com",
+        "grants": {
+            "add_vehicle": true,
+            "remove_vehicle": true,
+            "search_vehicle": true,
+            "notify_subscriber": true,
+            "undo_remove": true
+        }
+    },
+    {
+        "username": "user",
+        "password": "user",
+        "email": "user@hotmail.com",
+        "grants": {
+            "add_vehicle": false,
+            "remove_vehicle": false,
+            "search_vehicle": true,
+            "add_subscriber": true,
+            "remove_subscriber": true,
+            "watch_cache": true
+        }
+    }
+]
